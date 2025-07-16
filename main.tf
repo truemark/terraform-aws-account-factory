@@ -13,10 +13,10 @@ data "aws_servicecatalog_provisioning_artifacts" "artifacts" {
 }
 
 locals {
-  artifact_id = one([
+  artifact_id = tolist([
     for artifact in data.aws_servicecatalog_provisioning_artifacts.artifacts.provisioning_artifact_details :
     artifact.id if artifact.active
-  ])
+  ])[0]
 }
 
 resource "aws_servicecatalog_provisioned_product" "account" {
