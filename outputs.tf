@@ -7,3 +7,8 @@ output "provisioned_product_status" {
   description = "Provisioned product status"
   value       = aws_servicecatalog_provisioned_product.account.status
 }
+
+output "provisioned_account_id" {
+  description = "The AWS Account ID of the provisioned account"
+  value       = one([for o in aws_servicecatalog_provisioned_product.account.outputs : o.value if o.key == "AccountId"])
+}
